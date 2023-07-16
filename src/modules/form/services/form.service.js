@@ -71,7 +71,7 @@ exports.addUser = async (req, res)=>{
 
 exports.auth = async (req, res)=>{
     const {email, password: inPassword} = req.body;
-    const secretKey = process.env.SECRET_AUTH || My_Secret_Key
+    const secretKey = process.env.SECRET_AUTH
     const credentials ={
         email: email,
         password: inPassword
@@ -89,7 +89,7 @@ exports.auth = async (req, res)=>{
                 res.json({
                     email: rows[0].email,
                     token: token
-                })
+                }).status(200)
             }else{
                 res.json("Wrong password")
             }            
