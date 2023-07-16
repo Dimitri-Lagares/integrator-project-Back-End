@@ -1,11 +1,8 @@
-const mysql =  require('mysql')
+import pg from 'pg'
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'integrator-project'
-})
+const connection = new pg.Pool({
+    connectionString: process.env.DATABASE_URL
+  })
 
 connection.connect((error)=>{
     if (error) {
@@ -15,4 +12,4 @@ connection.connect((error)=>{
     }
 })
 
-module.exports = connection
+export default connection

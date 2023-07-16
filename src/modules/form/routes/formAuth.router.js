@@ -1,9 +1,9 @@
-const express = require('express')
-const form = require('../services/form.service')
+import express from 'express'
+import form from '../services/form.service.js'
 
 const router = express.Router()
 
 router.post('/login', form.auth)
 router.post('/send-data', form.sendForm)
 
-module.exports = router
+export default router

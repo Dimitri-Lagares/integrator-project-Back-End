@@ -1,9 +1,11 @@
-const connection = require('../../../../config/connection');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-require('dotenv').config()
+import connection from '../../../../config/connection.js';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { config } from 'dotenv';
 
-exports.getFormData = (req, res)=>{
+config()
+
+const getFormData = (req, res)=>{
     const sql = 'SELECT * FROM form'
     connection.query(sql, (error, rows)=>{
         if (error) {
@@ -15,7 +17,7 @@ exports.getFormData = (req, res)=>{
 }
 
 
-exports.sendForm = async (req, res)=>{
+const sendForm = async (req, res)=>{
     const { name, email, phone, request, comment } = req.body;
 
     const sql = `INSERT INTO form ( name, email, phone, request, comment ) VALUES ('${name}', '${email}', '${phone}', '${request}', '${comment}')`
@@ -28,7 +30,7 @@ exports.sendForm = async (req, res)=>{
     })
 }
 
-exports.updateForm = (req, res)=>{
+const updateForm = (req, res)=>{
     const { name, email, phone, request, comment } = req.body;
     const {id} = req.params;
 
@@ -42,7 +44,7 @@ exports.updateForm = (req, res)=>{
     })
 }
 
-exports.deleteForm = (req, res)=>{
+const deleteForm = (req, res)=>{
     const {id} = req.params;
 
     const sql = `DELETE FROM form WHERE id = '${id}'`
@@ -55,7 +57,7 @@ exports.deleteForm = (req, res)=>{
     })
 }
 
-exports.addUser = async (req, res)=>{
+const addUser = async (req, res)=>{
     const {email, password} = req.body;
     const passwordHash = await bcrypt.hash(password, 10)
 
@@ -69,9 +71,9 @@ exports.addUser = async (req, res)=>{
     })
 }
 
-exports.auth = async (req, res)=>{
+const auth = async (req, res)=>{
     const {email, password: inPassword} = req.body;
-    const secretKey = process.env.SECRET_AUTH
+    const secretKey = process.env.SECRET_AUTH || My_Secret_Key
     const credentials ={
         email: email,
         password: inPassword
@@ -100,3 +102,5 @@ exports.auth = async (req, res)=>{
         }
     })
 }
+
+export default { getFormData, sendForm, updateForm, deleteForm, addUser, auth }

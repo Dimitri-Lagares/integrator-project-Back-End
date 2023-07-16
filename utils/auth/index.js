@@ -1,4 +1,4 @@
-const passport = require('passport');
-const jstStrategy = require('./strategias/jwt.strategy')
+import passport from 'passport';
+import jstStrategy from './strategias/jwt.strategy.js';
 
 passport.use(jstStrategy )

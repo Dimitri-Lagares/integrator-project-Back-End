@@ -1,8 +1,8 @@
-const express = require('express')
-const form = require('../src/modules/form/routes/form.router')
-const formAuth = require('../src/modules/form/routes/formAuth.router')
-const passport = require('passport')
-require('../utils/auth/index')
+import express from 'express'
+import form from '../src/modules/form/routes/form.router.js'
+import formAuth from '../src/modules/form/routes/formAuth.router.js'
+import passport from 'passport'
+import '../utils/auth/index.js'
 
 const routers =(app)=>{
     const baseRoute = express.Router()
@@ -12,4 +12,4 @@ const routers =(app)=>{
     baseRoute.use('/form', passport.authenticate('jwt', {session: false}), form)
 }
 
-module.exports = routers
+export default routers
