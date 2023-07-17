@@ -20,7 +20,7 @@ const getFormData = (req, res)=>{
 const sendForm = async (req, res)=>{
     const { name, email, phone, request, comment } = req.body;
 
-    const sql = `INSERT INTO form ( name, email, phone, request, comment ) VALUES ('${name}', '${email}', '${phone}', '${request}', '${comment}')`
+    const sql = `INSERT INTO "integrator-project".form ( name, email, phone, request, comment ) VALUES ('${name}', '${email}', '${phone}', '${request}', '${comment}')`
     connection.query(sql, (error, rows)=>{
         if (error) {
             res.json(error)
@@ -34,7 +34,7 @@ const updateForm = (req, res)=>{
     const { name, email, phone, request, comment } = req.body;
     const {id} = req.params;
 
-    const sql = `UPDATE form SET name = '${name}', email='${email}', phone='${phone}', request='${request}', comment='${comment}' WHERE id = '${id}'`
+    const sql = `UPDATE "integrator-project".form SET name = '${name}', email='${email}', phone='${phone}', request='${request}', comment='${comment}' WHERE id = '${id}'`
     connection.query(sql, (error, rows)=>{
         if (error) {
             res.json(error)
@@ -47,7 +47,7 @@ const updateForm = (req, res)=>{
 const deleteForm = (req, res)=>{
     const {id} = req.params;
 
-    const sql = `DELETE FROM form WHERE id = '${id}'`
+    const sql = `DELETE FROM "integrator-project".form WHERE id = '${id}'`
     connection.query(sql, (error, rows)=>{
         if (error) {
             res.json(error)
@@ -61,7 +61,7 @@ const addUser = async (req, res)=>{
     const {email, password} = req.body;
     const passwordHash = await bcrypt.hash(password, 10)
 
-    const sql = `INSERT INTO auth (email, password) VALUES ('${email}', '${passwordHash}')`
+    const sql = `INSERT INTO "integrator-project".auth (email, password) VALUES ('${email}', '${passwordHash}')`
     connection.query(sql, (error, rows)=>{
         if (error) {
             res.json(error)
@@ -73,12 +73,12 @@ const addUser = async (req, res)=>{
 
 const auth = async (req, res)=>{
     const {email, password: inPassword} = req.body;
-    const secretKey = process.env.SECRET_AUTH || My_Secret_Key
+    const secretKey = process.env.SECRET_AUTH
     const credentials ={
         email: email,
         password: inPassword
     }
-    const sql = `SELECT * FROM auth WHERE email = '${email}'`
+    const sql = `SELECT * FROM "integrator-project".auth WHERE email = '${email}'`
     connection.query(sql, async (error, rows)=>{
         if (error) {
             res.json(error)
