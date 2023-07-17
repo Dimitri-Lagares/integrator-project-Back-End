@@ -78,7 +78,8 @@ const auth = async (req, res)=>{
         email: email,
         password: inPassword
     }
-    const sql = `SELECT * FROM "integrator-project".auth WHERE email = '${email}'`
+    const sql = `SELECT id, email, password FROM "integrator-project".auth WHERE email = '${email}'`
+    
     connection.query(sql, async (error, rows)=>{
         if (error) {
             res.json(error)
