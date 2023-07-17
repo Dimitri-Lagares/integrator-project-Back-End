@@ -43,7 +43,7 @@ ________________________________________________
 
 CREATE TABLE "integrator-project".form
 (
-    id BIGINT NOT NULL,
+    id SERIAL NOT NULL,
     name TEXT NOT NULL,
     email TEXT NOT NULL,
     phone BIGINT NOT NULL,

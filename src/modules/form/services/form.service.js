@@ -6,7 +6,7 @@ import { config } from 'dotenv';
 config()
 
 const getFormData = (req, res)=>{
-    const sql = 'SELECT * FROM form'
+    const sql = 'SELECT * FROM "integrator-project".form'
     connection.query(sql, (error, rows)=>{
         if (error) {
             res.json(error)
