@@ -17,7 +17,6 @@ const getFormData = (req, res)=>{
     })
 }
 
-
 const sendForm = async (req, res)=>{
     const { name, email, phone, request, comment } = req.body;
 
