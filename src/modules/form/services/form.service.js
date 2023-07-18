@@ -2,6 +2,7 @@ import connection from '../../../../config/connection.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
+import passport from 'passport';
 
 config()
 
@@ -79,6 +80,7 @@ const auth = async (req, res)=>{
         password: inPassword
     }
     const sql = `SELECT email, password FROM "integrator-project".auth WHERE email = '${email}'`
+    console.log(email, passport);
     
     connection.query(sql, async (error, rows)=>{
         if (error) {
