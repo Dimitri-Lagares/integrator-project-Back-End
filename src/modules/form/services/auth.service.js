@@ -2,11 +2,10 @@ import connection from '../../../../config/connection.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
-import passport from 'passport';
 
 config()
 
-const auth = async (req, res)=>{
+const auth = (req, res)=>{
     const {email, password: inPassword} = req.body;
     const secretKey = process.env.SECRET_AUTH
     const credentials ={
