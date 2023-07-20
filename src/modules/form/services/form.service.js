@@ -71,39 +71,50 @@ const addUser = async (req, res)=>{
     })
 }
 
-const auth = async (req, res)=>{
-    const {email, password: inPassword} = req.body;
-    const secretKey = process.env.SECRET_AUTH
-    const credentials ={
-        email: email,
-        password: inPassword
-    }
-    // const sql = `SELECT email, password FROM 'integrator-project'.auth WHERE email = email1@email.com`
+const auth = (req, res)=>{
     const sql = 'SELECT * FROM "integrator-project".form'
-    
-    connection.query(sql, async (error, rows)=>{
-        console.log(rows);
-        // if (error) {
-        //     res.json(error)
-        // } else {
-        //    if (rows.length) {
-        //     const {password} = rows[0]
-        //     const passwordIsCorrect = await bcrypt.compare(inPassword, password)
-        //     const token = jwt.sign(credentials, secretKey)
-        //     if (passwordIsCorrect) {
-        //         res.json({
-        //             email: rows[0].email,
-        //             token: token
-        //         })
-        //     }else{
-        //         res.json("Wrong password")
-        //     }            
-        //    } else {
-        //     res.json("Wrong email")
-        //    }
-            
-        // }
+    connection.query(sql, (error, rows)=>{
+        if (error) {
+            res.json(error)
+        } else {
+            res.json(rows)
+        }
     })
 }
+
+// const auth = async (req, res)=>{
+//     const {email, password: inPassword} = req.body;
+//     const secretKey = process.env.SECRET_AUTH
+//     const credentials ={
+//         email: email,
+//         password: inPassword
+//     }
+//     // const sql = `SELECT email, password FROM 'integrator-project'.auth WHERE email = email1@email.com`
+//     const sql = 'SELECT * FROM "integrator-project".form'
+    
+//     connection.query(sql, async (error, rows)=>{
+//         console.log(rows);
+//         // if (error) {
+//         //     res.json(error)
+//         // } else {
+//         //    if (rows.length) {
+//         //     const {password} = rows[0]
+//         //     const passwordIsCorrect = await bcrypt.compare(inPassword, password)
+//         //     const token = jwt.sign(credentials, secretKey)
+//         //     if (passwordIsCorrect) {
+//         //         res.json({
+//         //             email: rows[0].email,
+//         //             token: token
+//         //         })
+//         //     }else{
+//         //         res.json("Wrong password")
+//         //     }            
+//         //    } else {
+//         //     res.json("Wrong email")
+//         //    }
+            
+//         // }
+//     })
+// }
 
 export default { getFormData, sendForm, updateForm, deleteForm, addUser, auth }
