@@ -83,26 +83,26 @@ const auth = async (req, res)=>{
     
     connection.query(sql, async (error, rows)=>{
         console.log(rows);
-        // if (error) {
-        //     res.json(error)
-        // } else {
-        //    if (rows.length) {
-        //     const {password} = rows[0]
-        //     const passwordIsCorrect = await bcrypt.compare(inPassword, password)
-        //     const token = jwt.sign(credentials, secretKey)
-        //     if (passwordIsCorrect) {
-        //         res.json({
-        //             email: rows[0].email,
-        //             token: token
-        //         })
-        //     }else{
-        //         res.json("Wrong password")
-        //     }            
-        //    } else {
-        //     res.json("Wrong email")
-        //    }
+        if (error) {
+            res.json(error)
+        } else {
+           if (rows.length) {
+            const {password} = rows[0]
+            const passwordIsCorrect = await bcrypt.compare(inPassword, password)
+            const token = jwt.sign(credentials, secretKey)
+            if (passwordIsCorrect) {
+                res.json({
+                    email: rows[0].email,
+                    token: token
+                })
+            }else{
+                res.json("Wrong password")
+            }            
+           } else {
+            res.json("Wrong email")
+           }
             
-        // }
+        }
     })
 }
 
