@@ -71,14 +71,12 @@ const addUser = async (req, res)=>{
     })
 }
 
-const auth = (req, res)=>{
-    const sql = 'SELECT * FROM "integrator-project".form'
+const auth = async (req, res)=>{
+    const { email, password } = req.body;
+
+    const sql = `SELECT email, password FROM 'integrator-project'.auth WHERE email = email1@email.com`
     connection.query(sql, (error, rows)=>{
-        if (error) {
-            res.json(error)
-        } else {
-            res.json(rows)
-        }
+        console.log(rows);
     })
 }
 
