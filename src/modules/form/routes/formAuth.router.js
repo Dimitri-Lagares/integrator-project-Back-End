@@ -1,9 +1,9 @@
 import express from 'express'
-import form from '../services/form.service.js'
+import auth from '../services/auth.service.js'
 
 const router = express.Router()
 
-router.post('/login', form.auth)
-router.post('/send-data', form.sendForm)
+router.post('/login', auth.auth)
+router.post('/send-data', auth.sendForm)
 
 export default router
