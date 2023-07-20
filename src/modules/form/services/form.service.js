@@ -93,7 +93,7 @@ const auth = async (req, res)=>{
                 res.json({
                     email: rows[0].email,
                     token: token
-                }).status(200)
+                })
             }else{
                 res.json("Wrong password")
             }            
