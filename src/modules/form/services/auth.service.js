@@ -4,8 +4,8 @@ import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 
 config()
-
-const auth = (req, res)=>{
+    
+const auth = async (req, res)=>{
     const {email, password: inPassword} = req.body;
     const secretKey = process.env.SECRET_AUTH
     const credentials ={
@@ -13,26 +13,25 @@ const auth = (req, res)=>{
         password: inPassword
     }
     const sql = `SELECT email, password FROM "integrator-project".auth WHERE email = '${email}'`
-    
-    connection.query(sql, async (error, rows)=>{
-        console.log(rows);
+
+    connection.query(sql, async (error, result)=>{
         if (error) {
-            res.json(error)
+            res.send(error)
         } else {
-           if (rows.length) {
-            const {password} = rows[0]
+           if (result.rows.length) {
+            const {password} = result.rows[0]
             const passwordIsCorrect = await bcrypt.compare(inPassword, password)
             const token = jwt.sign(credentials, secretKey)
             if (passwordIsCorrect) {
                 res.json({
-                    email: rows[0].email,
+                    email: result.rows[0].email,
                     token: token
                 })
             }else{
-                res.json("Wrong password")
+                res.send("Wrong Password")
             }            
            } else {
-            res.json("Wrong email")
+            res.send("Wrong Email")
            }
             
         }
@@ -47,9 +46,9 @@ const sendForm = async (req, res)=>{
         if (error) {
             res.json(error)
         } else {
-            res.json({status: 200, message: 'Information sended succesfully'})
+            res.send('Information sended succesfully')
         }
     })
 }
 
-export default { sendForm, auth }
+export default { auth, sendForm }

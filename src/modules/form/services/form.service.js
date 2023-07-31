@@ -6,11 +6,11 @@ config()
 
 const getFormData = (req, res)=>{
     const sql = 'SELECT * FROM "integrator-project".form'
-    connection.query(sql, (error, rows)=>{
+    connection.query(sql, (error, result)=>{
         if (error) {
-            res.json(error)
+            res.send(error)
         } else {
-            res.json(rows)
+            res.json(result.rows)
         }
     })
 }
@@ -22,9 +22,9 @@ const updateForm = (req, res)=>{
     const sql = `UPDATE "integrator-project".form SET name = '${name}', email='${email}', phone='${phone}', request='${request}', comment='${comment}' WHERE id = '${id}'`
     connection.query(sql, (error, rows)=>{
         if (error) {
-            res.json(error)
+            res.send(error)
         } else {
-            res.json("Item updated succesfully")
+            res.send("Item updated succesfully")
         }
     })
 }
@@ -35,9 +35,9 @@ const deleteForm = (req, res)=>{
     const sql = `DELETE FROM "integrator-project".form WHERE id = '${id}'`
     connection.query(sql, (error, rows)=>{
         if (error) {
-            res.json(error)
+            res.send(error)
         } else {
-            res.json("Item deleted succesfully")
+            res.send("Item deleted succesfully")
         }
     })
 }
@@ -49,9 +49,9 @@ const addUser = async (req, res)=>{
     const sql = `INSERT INTO "integrator-project".auth (email, password) VALUES ('${email}', '${passwordHash}')`
     connection.query(sql, (error, rows)=>{
         if (error) {
-            res.json(error)
+            res.send(error)
         } else {
-            res.json({status: 200, message: 'Added succesfully'})
+            res.send('Added succesfully')
         }
     })
 }
