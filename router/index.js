@@ -9,7 +9,8 @@ const routers =(app)=>{
     app.use(express.static('public'))
     app.use('/', baseRoute)
     baseRoute.use('/auth', formAuth)
-    baseRoute.use('/form', passport.authenticate('jwt', {session: false}), form)
+        baseRoute.use('/form', form)
+//    baseRoute.use('/form', passport.authenticate('jwt', {session: false}), form)
 }
 
 export default routers
