@@ -56,4 +56,8 @@ const addUser = async (req, res)=>{
     })
 }
 
-export default { getFormData, updateForm, deleteForm, addUser }
+const authenticate = async (req, res) => {
+    res.send('Token Validated')
+}
+
+export default { getFormData, updateForm, deleteForm, addUser, authenticate }
